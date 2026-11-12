@@ -116,7 +116,7 @@ up to 46,346 posts, depending on the model and outcome.
 - Steps 4, 6 (`data_distributions.ipynb`) and 7 do not pin package versions. They use
   `numpy`, `pandas`, `matplotlib`, `scipy`, `sentence-transformers`, `bertopic`,
   `umap-learn`, `hdbscan`, `scikit-learn`, `stopwordsiso` and `openpyxl`.
-- **R 4.5.3 ** with `lme4`, `dplyr` and `parallel`. The scripts use `parallel::mclapply`
+- **R 4.5.3** with `lme4`, `dplyr` and `parallel`. The scripts use `parallel::mclapply`
   and therefore run on Linux and macOS but not in parallel on Windows. If memory is
   limited, lower `mc.cores`.
 - **Stata 19** (`version 19`) for steps 3 and 5.
