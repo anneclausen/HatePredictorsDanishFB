@@ -54,7 +54,7 @@ The scripts read and write in their working directory.
 ## Input data (not included)
 
 **`manual_codings.csv`** – manually coded comments. Columns used by the code:
-`global_id`, `comment_text`, `created_time`, `page_name`, `post_id`, `post_text`,
+`global_id`, `comment_text`, `page_name`, `post_id`, `post_text`,
 and the binary codes `hs`, `exp`, `imp`, `imp_nstereo`, `exp_only`, `imp_only`.
 
 **`all_unlabelled.csv`** – the comments to be labelled. Must contain
@@ -68,7 +68,7 @@ post and page variables listed above.
 | `hs_total`, `exp_total`, `imp_total`, `imp_nstereo_total` | Outcomes: hate speech (overall), explicit hate speech, implicit hate speech, negative stereotyping (0/1). The manual code where the comment was manually coded, otherwise the classifier prediction. |
 | `label_source` | 1 = manual annotation, 2 = classifier prediction (DanskBERT) |
 | `post_sender` | News / Politicians / Parties (reference category in the models: Politicians) |
-| `news_type` | 11 categories of news pages (reference category: National) |
+| `news_type` | 11 categories of news pages (reference category: National news) |
 | `new_post_id` | Post identifier (a post is identified by `page_name` × `post_text`); the clustering variable in the regressions |
 | `topic_id` | BERTopic topic of the post: `0` = largest topic ("Generic captions/reactions", reference category), `-1` = outlier (excluded from Model 3) |
 
@@ -99,8 +99,7 @@ Danish stop words, 1–2-grams). Outliers are reduced with the embeddings strate
 (threshold 0.4) and topics are renumbered by size.
 
 **Regressions (step 6).** Multilevel logistic regressions
-(`lme4::glmer`, binomial, random intercept for post, Laplace approximation,
-`bobyqa` optimiser) for 4 outcomes × 3 predictor sets (post sender, news type,
+(`lme4::glmer`, binomial, random intercept for post) for 4 outcomes × 3 predictor sets (post sender, news type,
 post topic) = 12 models, plus one null model per outcome. The scripts report odds
 ratios with Wald 95 % confidence intervals, the random-intercept variance and the ICC
 (latent-variable formulation, π²/3). The analysis sample is up to 163,724 comments in
@@ -110,18 +109,14 @@ up to 46,346 posts, depending on the model and outcome.
 
 ## Software and hardware
 
-- **Python 3.13** (training: 3.13.12; labelling: 3.13.13; topic modelling,
-  descriptives and figures: 3.13.5). A GPU is needed in practice for steps 1, 2 and the
-  embedding step in 4.
-- Steps 1 and 2 install **pinned package versions** in their first cell. Run that
+- **Python 3.13** A GPU is needed in practice for steps 1, 2 and the embedding step in 4.
+- Steps 1 and 2 install pinned package versions in their first cell (for deterministic output). Run that
   cell first and then restart the kernel, as noted in the notebook. At the end of each
   training notebook, the versions of all imported packages are printed.
 - Steps 4, 6 (`data_distributions.ipynb`) and 7 do not pin package versions. They use
   `numpy`, `pandas`, `matplotlib`, `scipy`, `sentence-transformers`, `bertopic`,
-  `umap-learn`, `hdbscan`, `scikit-learn`, `stopwordsiso` and `openpyxl`
-  [TODO: add the versions used, e.g. from `pip list`].
-- **R** with `lme4`, `dplyr` and `parallel` [TODO: R version]. Both R scripts write
-  their `sessionInfo()` to `sessionInfo_*.txt`. The scripts use `parallel::mclapply`
+  `umap-learn`, `hdbscan`, `scikit-learn`, `stopwordsiso` and `openpyxl`.
+- **R 4.5.3 ** with `lme4`, `dplyr` and `parallel`. The scripts use `parallel::mclapply`
   and therefore run on Linux and macOS but not in parallel on Windows. If memory is
   limited, lower `mc.cores`.
 - **Stata 19** (`version 19`) for steps 3 and 5.
@@ -131,6 +126,5 @@ up to 46,346 posts, depending on the model and outcome.
 
 ---
 
-## License, citation and contact
-
-[TODO: license, e.g. MIT for the code] · [TODO: citation / DOI] · [TODO: contact]
+## Contact
+aclausen@sam.sdu.dk
