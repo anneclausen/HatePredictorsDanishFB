@@ -1,6 +1,6 @@
-# Replication code: hate speech in Danish Facebook comments
+# Replication code: Hate speech in Danish Facebook Discourse
 
-This repository contains the code used for **[TODO: paper title]**. The pipeline
+This repository contains the code used for the paper "Mapping Predictors of Minority-Targeted Hate Speech in Danish Facebook Discourse". The pipeline:
 
 1. trains DanskBERT classifiers on a manually coded sample of Facebook comments,
 2. uses them to label a large set of unlabelled comments,
@@ -12,8 +12,7 @@ This repository contains the code used for **[TODO: paper title]**. The pipeline
 
 **The data are not included.** The comments are user-generated content from
 Facebook and contain hate speech, so neither the raw data nor the trained
-model weights are shared here [TODO: add a data-availability statement / contact
-for access requests, and a link to the models if you decide to publish them].
+model weights are shared here. Model weights can be shared upon reasonable request from the author. 
 The folder structure and the expected input files are documented below so the
 code can be inspected and, with comparable data, re-run.
 
@@ -37,8 +36,7 @@ run before `BERTopic_posts.ipynb`).
 
 ### Files that must be moved between steps
 
-The scripts read and write in their working directory, with one exception: the
-notebooks in step 2 use `../data/`, i.e. a `data/` folder in the repository root.
+The scripts read and write in their working directory.
 
 - **1 → 2:** the notebooks in step 2 unpack `final_model_<name>.zip`. Zip the
   model folders from step 1 so that the model files (`config.json`,
